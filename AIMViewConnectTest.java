@@ -48,6 +48,7 @@ public class AIMViewConnectTest {
    while(reading && bytesRead < 6) {
      try {
        response[bytesRead] = input.readByte();
+       System.out.println("bytesRead" + " "+ bytesRead);
        bytesRead++;
      }
 
@@ -60,45 +61,44 @@ public class AIMViewConnectTest {
 
    if(response[0] == (byte)0xFA && response[1] == (byte)0xCE) {
 
-   System.out.println("Magic word detected");
+     System.out.println("Magic word detected");
 
-   // Verify that the version is correct
+     // Verify that the version is correct
 
-   if(response[2] == (byte)0x01) {
-     System.out.println("Version is correct");
+     if(response[2] == (byte)0x01) {
+       System.out.println("Version is correct");
 
-     // Verify that we got the desired response (EVENT_AUDIENCE_STATUS)
+       // Verify that we got the desired response (EVENT_AUDIENCE_STATUS)
 
-     if(response[3] == (byte)AIMViewConnectTest.EVENT_AUDIENCE_STATUS) {
-       System.out.println("Received EVENT_AUDIENCE_STATUS message");
+       if(response[3] == (byte)AIMViewConnectTest.EVENT_AUDIENCE_STATUS) {
+         System.out.println("Received EVENT_AUDIENCE_STATUS message");
 
-       // Verify that the payload size is correct
-       if(response[4] == (byte)1) {
-         // The audience size will be in the payload of the
-         // returned message (located at element 5 in the array)
-         System.out.println("Audience Size: " + response[5]);
+         // Verify that the payload size is correct
+         if(response[4] == (byte)1) {
+           // The audience size will be in the payload of the
+           // returned message (located at element 5 in the array)
+           System.out.println("Audience Size: " + response[5]);
+         }
+
+         else {
+           System.out.println("Incorrect payload size: " + response[4]);
+         }
+
        }
 
        else {
-         System.out.println("Incorrect payload size: " + response[4]);
+         System.out.println("Incorrect response message: " + response[3]);
        }
-
      }
 
      else {
-       System.out.println("Incorrect response message: " + response[3]);
+       System.out.println("Incorrect version: " + response[2]);
      }
-   }
-
-   else {
-     System.out.println("Incorrect version: " + response[2]);
-   }
 
    }
 
    else {
-     System.out.println("Incorrect magic word: 0x" +
-     response[0] + response[1]);
+     System.out.println("Incorrect magic word: 0x" + response[0] + response[1]);
    }
 
    input.close();

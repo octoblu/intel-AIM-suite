@@ -1,1 +1,1 @@
-# intel-AIM-suite
+# intel-aim-suite
