@@ -1,23 +1,10 @@
 net = require 'net'
 BufferStream = require 'simple-bufferstream'
 AimMessage = require './AimMessage'
-###
-request[0] = (byte)0xFA; // Magic word (first byte)
-   request[1] = (byte)0xCE; // Magic word (second byte)
-   request[2] = (byte)0x01; // Version
-   request[3] = (byte)MESSAGE_GET_AUDIENCE_STATUS; // Command
-   request[4] = (byte)0x00; // Payload size (0 for apiGetAudienceStatus)
-###
 MESSAGE_GET_AUDIENCE_STATUS = 0
 request = new Buffer [0xFA, 0xCE, 0x01, MESSAGE_GET_AUDIENCE_STATUS, 0x00]
 stream = new BufferStream request
 
-###
-function connected() {
-  stream.pipe(client);
-  // do other things
-}
-###
 message = new AimMessage()
 
 client = net.connect

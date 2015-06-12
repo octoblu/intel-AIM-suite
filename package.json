@@ -8,9 +8,10 @@
     "start": "node index.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "coffee-script": "^1.9.3",
     "simple-bufferstream": "^1.0.0"
-  }
+  },
+  "devDependencies": {}
 }

@@ -9,11 +9,18 @@ class AimMessage
     @version = data.slice 2, 3
     @type = data.slice 3, 4
     @payloadSize = data.slice 4, 5
+    @audienceCount = data.slice 5, data.length - 1
 
     console.log "MagicWord is: #{@magicWord.toString('hex')}"
     console.log "Version is: #{@version.toString('hex')}"
     console.log "Type is: #{@type.toString('hex')}"
     console.log "payload size is: #{@payloadSize.toString('hex')}"
+    console.log "audience count: #{@audienceCount.toString('hex')}"
 
+  getAudienceDetails: (data) =>
+
+  getAudienceStatus: (data) =>
+
+  getViewerEvents: (data) =>
 
 module.exports = AimMessage
