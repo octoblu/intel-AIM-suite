@@ -1,5 +1,6 @@
 net = require 'net'
 BufferStream = require 'simple-bufferstream'
+AimMessage = require './AimMessage'
 ###
 request[0] = (byte)0xFA; // Magic word (first byte)
    request[1] = (byte)0xCE; // Magic word (second byte)
@@ -17,6 +18,7 @@ function connected() {
   // do other things
 }
 ###
+message = new AimMessage()
 
 client = net.connect
   host: '192.168.100.66'
@@ -30,3 +32,6 @@ client = net.connect
 
 client.on 'connect', ->
   console.log "We're connected!"
+
+client.on 'data', (data)->
+  message.addData data
