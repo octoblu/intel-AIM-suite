@@ -1,6 +1,7 @@
 ViewerDetails = require './ViewerDetails'
 
-DETAILS_TYPE = 131
+EVENT_AUDIENCE_DETAILS = 131
+EVENT_VIEWER = 135
 
 class AimMessage
   constructor: () ->
@@ -22,15 +23,14 @@ class AimMessage
     console.log "payload size is: #{@payloadSize}"
     console.log "payload: #{@payload.toString('hex')} [len=#{@payload.length}]"
 
-    console.log 'type compared to 0x83 is ', @type == 0x83
-
-    if @type == DETAILS_TYPE
+    if @type == EVENT_AUDIENCE_DETAILS || @type == EVENT_VIEWER
       @getAudienceDetails @payload
 
   getAudienceDetails: (data) =>
-    size = data.readUInt8 0
-    console.log 'size byte =', size
-    @data = data.slice 1, data.length
+    if data.length % 20 != 0
+      first = data.readUInt8 0
+      console.log 'first byte =', first
+      @data = data.slice 1, data.length
 
     while @data = @details.parse @data
       console.log ' id:', @details.id

@@ -3,7 +3,16 @@ BufferStream = require 'simple-bufferstream'
 AimMessage = require './AimMessage'
 MESSAGE_GET_AUDIENCE_STATUS = 0
 MESSAGE_GET_AUDIENCE_DETAILS = 1
-request = new Buffer [0xFA, 0xCE, 0x01, MESSAGE_GET_AUDIENCE_DETAILS, 0x00]
+MESSAGE_GET_VIEWER_EVENTS = 5
+request = new Buffer [
+    0xFA, #magic word part 1
+    0xCE, #magic word part 2
+    0x01, #version
+    MESSAGE_GET_VIEWER_EVENTS, #command
+    0x01, #payload size
+    0x01 #payload
+
+  ]
 stream = new BufferStream request
 
 message = new AimMessage()
